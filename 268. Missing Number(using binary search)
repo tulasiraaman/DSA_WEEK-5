@@ -1,0 +1,48 @@
+class Solution {
+    public int missingNumber1(int[] nums) {
+        int n = nums.length, i = 0;
+        while(i < n){
+            int correct = nums[i];
+            if (nums[i] < n && nums[i] != nums[correct]) {
+                int temp = nums[i];
+                nums[i] = nums[correct];
+                nums[correct] = temp;
+            } else {
+                i++;
+            }
+        }
+        for (i = 0; i < n; i++) {
+            if (nums[i] != i) return i;
+        }
+        return n;
+    }
+
+    // only for sorted array 
+    public int missingNumber2(int[] nums) {
+        Arrays.sort(nums);
+        int left = 0, right = nums.length - 1;
+        
+        while (left <= right) {
+            int mid = left + (right - left) / 2;
+            
+            if (nums[mid] == mid) {
+                // Missing number is on the right side
+                left = mid + 1;
+            } else {
+                // Missing number is on the left side
+                right = mid - 1;
+            }
+        }
+        
+        return left; // The missing number
+    }
+
+    public int missingNumber(int[] nums) {
+        int n = nums.length;
+        int expectedSum = n * (n + 1) / 2;
+        int actualSum = 0;
+        for (int num : nums) actualSum += num;
+        return expectedSum - actualSum;
+    }
+
+}
