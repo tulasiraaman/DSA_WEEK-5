@@ -1,0 +1,26 @@
+class Solution {
+    public int[] searchRange(int[] nums, int target) {
+
+        int first = binarySearch(nums, target);
+        if(first == nums.length || nums[first] != target) return new int[]{-1, -1};
+        int last = binarySearch(nums, target+1)-1;
+        
+        return new int[]{first, last};
+    }
+
+    private int binarySearch(int[] nums, int target){
+        int left = 0, right = nums.length;
+        // remove -1, for edge cases like single-element arrays like [1] or when target is greater than all elements like [2,4,5,8] t=10 it's left is len of nums.
+
+        while(left < right){
+            int mid = left + (right - left)/2;
+            if(nums[mid] < target){
+                left = mid+1;
+            }else{
+                right = mid;
+            }
+            //If mid is too small, skip it. If mid is big enough, keep it and search left.
+        }
+        return left;
+    }
+}
