@@ -1,0 +1,19 @@
+class Solution {
+    public int findKRotation(int arr[]) {
+        // Code here
+        int left = 0, right = arr.length-1;
+        int ans = 0;
+        
+        while(left <= right){
+            int mid = left + (right - left)/2;
+            
+            if(arr[mid] < arr[right]){
+                right = mid;
+            }else{
+                ans = mid;
+                left = mid+1;
+            }
+        }
+        return ans;
+    }
+}
