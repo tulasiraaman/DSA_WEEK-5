@@ -1,0 +1,21 @@
+class Solution {
+    public int findPeakElement(int[] nums) {
+        int left = 0, right = nums.length-1;
+
+        while(left < right){
+            int mid = left + (right - left)/2;
+
+            if(nums[mid] > nums[mid+1]){
+                right = mid;
+            }else{
+                left = mid+1;
+            }
+        }
+        return left;
+        
+        // At each step, I compare nums[mid] with nums[mid+1].
+        // If the slope is descending (nums[mid] > nums[mid+1]), you know there must be a peak on the left side (including mid).
+        // If the slope is ascending (nums[mid] < nums[mid+1]), you know there must be a peak on the right side (beyond mid).
+        // By always moving toward the slope that leads to a peak, I shrink the search space until only one element remains — which must be a peak.
+    }
+}
