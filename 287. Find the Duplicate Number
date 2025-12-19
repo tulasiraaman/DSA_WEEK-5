@@ -1,0 +1,23 @@
+class Solution {
+    public int findDuplicate(int[] nums) {
+        int left = 1, right = nums.length-1; //left = 0 can work
+        //TC - O(n log n), SC - O(n)
+        while(left < right){
+            int mid = left + (right - left)/2;
+            int count = 0;
+
+            for (int num : nums) {
+                if (num <= mid) count++;
+            }
+
+            if (count > mid) {
+                right = mid;     // duplicate in left half
+            } else {
+                left = mid + 1;  // duplicate in right half
+            }
+            //cyclic sort is efficient but modifies the orginal array.
+            //Floyd’s cycle detection is best for that - TC O(n), SC O(1).
+        }
+        return left;
+    }
+}
